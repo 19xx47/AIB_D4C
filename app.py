@@ -47,7 +47,8 @@ def imageInput(device, src):
 
 
 def videoInput(model, src):
-    if src == 'Upload your own data.':
+    uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
+    if uploaded_video != None:
         uploaded_video = st.file_uploader(
             "Upload A Video", type=['mp4', 'mpeg', 'mov'])
         pred_view = st.empty()
