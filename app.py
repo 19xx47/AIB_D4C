@@ -63,7 +63,7 @@ def videoInput(device, src):
         st.video(video_bytes)
         st.write("วีดีโอที่ถูกนำเข้ามา")
         detect(weights="models/best.pt", source=imgpath, device=0,project=outputpath) if device == 'cuda' else detect(weights="models/best.pt", source=imgpath, device='cpu',project=outputpath)
-        st_video2 = open(outputpath+"/exp/"+ str(pp)+uploaded_video.name, 'rb')
+        st_video2 = open(outputpath + str(pp)+uploaded_video.name, 'rb')
         video_bytes2 = st_video2.read()
         st.video(video_bytes2)
         st.write("ผลลัพท์การตรวจสอบ")
