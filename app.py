@@ -51,6 +51,7 @@ def videoInput(device, src):
     if uploaded_video != None:
 
         ts = datetime.timestamp(datetime.now())
+        pp = ts
         imgpath = os.path.join('data/uploads', str(ts)+uploaded_video.name)
         outputpath = os.path.join('data/video_output', os.path.basename(imgpath))
 
@@ -60,12 +61,14 @@ def videoInput(device, src):
         st_video = open(imgpath, 'rb')
         video_bytes = st_video.read()
         st.video(video_bytes)
-        st.write("Uploaded Video")
-        detect(weights="models/yoloTrained.pt", source=imgpath, device=0) if device == 'cuda' else detect(weights="models/yoloTrained.pt", source=imgpath, device='cpu')
-        st_video2 = open(outputpath, 'rb')
+        st.write("วีดีโอที่ถูกนำเข้ามา")
+        detect(weights="models/best.pt", source=imgpath, device=0,project=outputpath) if device == 'cuda' else detect(weights="models/best.pt", source=imgpath, device='cpu',project=outputpath)
+        st_video2 = open(outputpath+"/exp/"+ str(pp)+uploaded_video.name, 'rb')
         video_bytes2 = st_video2.read()
         st.video(video_bytes2)
-        st.write("Model Prediction")
+        st.write("ผลลัพท์การตรวจสอบ")
+        # st.video(video_bytes2)
+        st.download_button(label="Download video file", data=video_bytes2,file_name='video_clip.mp4')
 
 def main():
     # -- Sidebar
