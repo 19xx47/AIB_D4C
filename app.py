@@ -46,7 +46,7 @@ def imageInput(device, src):
 
 
 
-def videoInput(device, src):
+def videoInput(model, src):
     if src == 'Upload your own data.':
         uploaded_video = st.file_uploader(
             "Upload A Video", type=['mp4', 'mpeg', 'mov'])
@@ -68,25 +68,7 @@ def videoInput(device, src):
             st.write("Uploaded Video")
             submit = st.button("Run Prediction")
             if submit:
-                runVideo(device, uploaded_video_path, pred_view, warning)
-
-    elif src == 'From example data.':
-        # Image selector slider
-        videopaths = glob.glob('data/example_videos/*')
-        if len(videopaths) == 0:
-            st.error(
-                'No videos found, Please upload example videos in data/example_videos', icon="⚠️")
-            return
-        imgsel = st.slider('Select random video from example data.',
-                           min_value=1, max_value=len(videopaths), step=1)
-        pred_view = st.empty()
-        video = videopaths[imgsel-1]
-        submit = st.button("Predict!")
-        if submit:
-            runVideo(device, video, pred_view, warning)
-       
-        
-
+                runVideo(model, uploaded_video_path, pred_view, warning)
 
 def main():
     # -- Sidebar
