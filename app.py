@@ -9,6 +9,7 @@ import os
 import wget
 import time
 
+
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='models/best.pt', force_reload=True) 
 
 def imageInput(device, src):
