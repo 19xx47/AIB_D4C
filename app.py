@@ -45,7 +45,7 @@ def imageInput(device, src):
 
 
 
-def video_input(data_src):
+def video_input(device, src):
     vid_file = None
     if data_src == 'Sample data':
         vid_file = "data/sample_videos/sample.mp4"
