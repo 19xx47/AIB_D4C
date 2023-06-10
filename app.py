@@ -142,7 +142,7 @@ def main():
 
 if __name__ == '__main__':
   
-    main()
+def main()
 @st.cache
 def loadModel():
     start_dl = time.time()
