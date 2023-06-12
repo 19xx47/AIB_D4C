@@ -8,10 +8,10 @@ import os
 import wget
 import time
 import cv2
-cfg_model_path = 'best.pt'
+cfg_model_path = './model/best.pt'
 model = None
 confidence = .25
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True) 
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='./model/best.pt', force_reload=True) 
 
 def imageInput(device, src):
     
@@ -195,7 +195,7 @@ if __name__ == "__main__":
 @st.cache
 def loadModel():
     start_dl = time.time()
-    model_file = "best.pt" 
+    model_file = "./model/best.pt" 
     finished_dl = time.time()
     print(f"Model Downloaded, ETA:{finished_dl-start_dl}")
 loadModel()
