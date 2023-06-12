@@ -67,7 +67,10 @@ def videoInput(device, src):
         st.video(video_bytes2)
         st.write("ผลลัพท์การตรวจสอบ")
         # st.video(video_bytes2)
-        st.download_button(label="Download video file", data=video_bytes2,file_name='video_clip.mp4'
+        st.download_button(label="Download video file", data=video_bytes2,file_name='video_clip.mp4')
+       
+        
+
 
 def main():
     # -- Sidebar
