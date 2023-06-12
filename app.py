@@ -47,8 +47,8 @@ def imageInput(device, src):
 
 def videoInput(model, src):
     if src == 'Upload your own data.':
-        uploaded_video = st.file_uploader(
-            "Upload A Video", type=['mp4', 'mpeg', 'mov'])
+      uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
+    if uploaded_video != None:
         pred_view = st.empty()
         warning = st.empty()
         if uploaded_video != None:
@@ -68,8 +68,6 @@ def videoInput(model, src):
             submit = st.button("Run Prediction")
             if submit:
                 runVideo(model, uploaded_video_path, pred_view, warning)
-       uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
-    if uploaded_video != None:
 
        
         
