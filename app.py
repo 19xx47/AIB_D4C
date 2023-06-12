@@ -91,8 +91,6 @@ def main():
     
     if option == "Image":    
         imageInput(deviceoption, datasrc)
-    else:
-        videoInput(deviceoption, datasrc)
 
 
         
