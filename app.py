@@ -7,7 +7,6 @@ from datetime import datetime
 import os
 import wget
 import time
-import cv2
 cfg_model_path = 'best.pt'
 model = None
 confidence = .25
