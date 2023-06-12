@@ -68,6 +68,8 @@ def videoInput(model, src):
             submit = st.button("Run Prediction")
             if submit:
                 runVideo(model, uploaded_video_path, pred_view, warning)
+       uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
+    if uploaded_video != None:
 
        
         
