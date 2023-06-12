@@ -45,7 +45,6 @@ def imageInput(device, src):
 
 
 
-
 def videoInput(device, src):
     uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
     if uploaded_video != None:
@@ -105,14 +104,13 @@ def main():
         # elif(valuesimg == 2):
         #     st.image(image3, caption='picture 3')
         #     st.write("ผลลัพท์การตรวจสอบ")
-    elif option == "Video": 
-        videoInput(deviceoption, datasrc)
 
        
 
 
     
     
+
 if __name__ == '__main__':
   
     main()
