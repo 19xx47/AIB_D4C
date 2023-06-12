@@ -46,28 +46,43 @@ def imageInput(device, src):
 
 
 def videoInput(device, src):
-    uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
-    if uploaded_video != None:
+    if src == 'Upload your own data.':
+        uploaded_video = st.file_uploader(
+            "Upload A Video", type=['mp4', 'mpeg', 'mov'])
+        pred_view = st.empty()
+        warning = st.empty()
+        if uploaded_video != None:
 
-        ts = datetime.timestamp(datetime.now())
-        pp = ts
-        imgpath = os.path.join('data/uploads', str(ts)+uploaded_video.name)
-        outputpath = os.path.join('data/video_output', os.path.basename(imgpath))
+            # Save video to disk
+            ts = datetime.timestamp(datetime.now())  # timestamp a upload
+            uploaded_video_path = os.path.join(
+                'data/uploads', str(ts)+uploaded_video.name)
+            with open(uploaded_video_path, mode='wb') as f:
+                f.write(uploaded_video.read())
 
-        with open(imgpath, mode='wb') as f:
-            f.write(uploaded_video.read())  # save video to disk
+            # Display uploaded video
+            with open(uploaded_video_path, 'rb') as f:
+                video_bytes = f.read()
+            st.video(video_bytes)
+            st.write("Uploaded Video")
+            submit = st.button("Run Prediction")
+            if submit:
+                runVideo(device, uploaded_video_path, pred_view, warning)
 
-        st_video = open(imgpath, 'rb')
-        video_bytes = st_video.read()
-        st.video(video_bytes)
-        st.write("วีดีโอที่ถูกนำเข้ามา")
-        detect(weights="models/best.pt", source=imgpath, device=0,project=outputpath) if device == 'cuda' else detect(weights="models/best.pt", source=imgpath, device='cpu',project=outputpath)
-        st_video2 = open(outputpath+"/exp/"+ str(pp)+uploaded_video.name, 'rb')
-        video_bytes2 = st_video2.read()
-        st.video(video_bytes2)
-        st.write("ผลลัพท์การตรวจสอบ")
-        # st.video(video_bytes2)
-        st.download_button(label="Download video file", data=video_bytes2,file_name='video_clip.mp4')
+    elif src == 'From example data.':
+        # Image selector slider
+        videopaths = glob.glob('data/example_videos/*')
+        if len(videopaths) == 0:
+            st.error(
+                'No videos found, Please upload example videos in data/example_videos', icon="⚠️")
+            return
+        imgsel = st.slider('Select random video from example data.',
+                           min_value=1, max_value=len(videopaths), step=1)
+        pred_view = st.empty()
+        video = videopaths[imgsel-1]
+        submit = st.button("Predict!")
+        if submit:
+            runVideo(device, video, pred_view, warning)
        
         
 
