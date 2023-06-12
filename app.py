@@ -45,25 +45,29 @@ def imageInput(device, src):
 
 
 
-def videoInput(device, src):
-    uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
-    if uploaded_video != None:
+def videoInput(model, src):
+    if src == 'Upload your own data.':
+        uploaded_video = st.file_uploader(
+            "Upload A Video", type=['mp4', 'mpeg', 'mov'])
+        pred_view = st.empty()
+        warning = st.empty()
+        if uploaded_video != None:
 
-        ts = datetime.timestamp(datetime.now())
-        imgpath = os.path.join('data/uploads', str(ts)+uploaded_video.name)
-        outputpath = os.path.join('data/video_output', os.path.basename(imgpath))
+            # Save video to disk
+            ts = datetime.timestamp(datetime.now())  # timestamp a upload
+            uploaded_video_path = os.path.join(
+                'data/uploads', str(ts)+uploaded_video.name)
+            with open(uploaded_video_path, mode='wb') as f:
+                f.write(uploaded_video.read())
 
-        with open(imgpath, mode='wb') as f:
-            f.write(uploaded_video.read())  # save video to disk
-
-        st_video = open(imgpath, 'rb')
-        video_bytes = st_video.read()
-        st.video(video_bytes)
-        st.write("Uploaded Video")
-        st_video2 = open(outputpath, 'rb')
-        video_bytes2 = st_video2.read()
-        st.video(video_bytes2)
-        st.write("Model Prediction") 
+            # Display uploaded video
+            with open(uploaded_video_path, 'rb') as f:
+                video_bytes = f.read()
+            st.video(video_bytes)
+            st.write("Uploaded Video")
+            submit = st.button("Run Prediction")
+            if submit:
+                runVideo(model, uploaded_video_path, pred_view, warning)
 
        
         
